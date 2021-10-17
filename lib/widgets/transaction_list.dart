@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
-import '../widgets/transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
+  final Function deleteTransaction;
   final List<Transaction> userTransactions;
-  const TransactionList({
-    Key? key,
-    required this.userTransactions,
-  }) : super(key: key);
+  const TransactionList(
+      {Key? key,
+      required this.userTransactions,
+      required this.deleteTransaction})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 450,
       child: userTransactions.isEmpty
           ? Column(
               children: [
@@ -53,6 +54,13 @@ class TransactionList extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     subtitle: Text(DateFormat.yMMMd().format(tx.date)),
+                    trailing: IconButton(
+                      onPressed: () {
+                        deleteTransaction(tx.id);
+                      },
+                      color: Theme.of(context).errorColor,
+                      icon: const Icon(Icons.delete),
+                    ),
                   ),
                 );
               },
