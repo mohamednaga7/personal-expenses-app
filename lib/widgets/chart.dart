@@ -52,7 +52,8 @@ class Chart extends StatelessWidget {
               child: ChartBar(
                   label: data.day,
                   spendingAmount: data.amount,
-                  spendingPctOfTotal: data.amount / totalSpending),
+                  spendingPctOfTotal:
+                      totalSpending == 0 ? 0.0 : data.amount / totalSpending),
             );
           }).toList(),
         ),
